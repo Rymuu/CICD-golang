@@ -1,20 +1,24 @@
-# Use the official Golang image as a base image
-FROM golang:alpine
+# Étape de construction
+FROM golang:alpine AS builder
 
-# Set the Current Working Directory inside the container
+# Définir le répertoire de travail
 WORKDIR /app
 
-# Copy go mod and sum files
+# Copier les fichiers go.mod et go.sum et télécharger les dépendances
 COPY go.mod go.sum ./
-
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
 RUN go mod download
 
-# Copy the source code from the current directory to the Working Directory inside the container
+# Copier le code source
 COPY . .
 
-# Build the Go app
-RUN go build -o main .
+# Compiler l'application sans CGo pour créer un binaire statique
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
-# Command to run the executable
+# Étape d'exécution
+FROM scratch
+
+# Copier le binaire compilé depuis l'étape de construction
+COPY --from=builder /app/main .
+
+# Définir la commande pour exécuter l'exécutable
 CMD ["./main"]
