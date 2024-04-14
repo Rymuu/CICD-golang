@@ -3,7 +3,7 @@ pipeline {
        ID_DOCKER = "${ID_DOCKER_PARAMS}"
        IMAGE_NAME = "golangwebapp"
        IMAGE_TAG = "latest"
-       STAGING = "${ID_DOCKER}-staging"
+       STAGING = "${ID_DOCKER}-staging-golang"
        PRODUCTION = "${ID_DOCKER}-production"
      }
      agent none
