@@ -2,7 +2,7 @@ package main
 
 import (
 	"embed"
-
+	"os"
 	"github.com/labstack/echo/v4"
 
 	"github.com/ybkuroki/go-webapp-sample/config"
