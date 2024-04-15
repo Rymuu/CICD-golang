@@ -27,4 +27,4 @@ RUN apk add --no-cache bash
 COPY --from=builder /app/main .
 
 # Définir la commande pour exécuter l'exécutable
-CMD ["./main","-port=$PORT"]
+CMD ["./main"]
