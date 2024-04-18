@@ -114,6 +114,7 @@ pipeline {
     always {
       script {
            emailext body: "Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} ended with result : ${currentBuild.result} ! more info ${env.BUILD_URL}",
+           from: 'ryme.lehna@gmail.com',
            subject: "Result of ${env.JOB_NAME} build number ${env.BUILD_NUMBER}",
            to: "${EMAIL_RECIPIENT}"
       }
